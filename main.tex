@@ -1,33 +1,25 @@
-\documentclass{beamer}
+%% Change the optional argument to 'presentation' or 'handout' as needed
+\documentclass[presentation, aspectratio=169]{beamer}
+
+
+%% Load the presentation theme
 \usetheme{Presentation}
 
-%% Uncomment the next three lines to add notes to presentation slides
-% \usepackage{pgfpages}
-% \setbeameroption{show notes on second screen}
-% \setbeamertemplate{note page}{\insertnote}
+%% Set the path for figures
+\graphicspath{{figure/}}
 
-%% All the figure files inside the images folder
-\graphicspath{{images/}}
-
-%% Comment the next three lines to remove the bibliography
-\usepackage[backend=biber,style=numeric, citestyle=ieee]{biblatex}
-\addbibresource{bibliography.bib}
-\AtBeginBibliography{\small}
-
-\usepackage[utf8]{inputenc}
-
-\usepackage{graphicx}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-
-\usepackage{pifont}
+%% Load the bibliography file
+\addbibresource{reference.bib}
 
 
+%% Use \cmark for tick and \xmark for x
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
 
-%% TODO: Add information to the title page
-\title{Presentation Title}
-\author{Presenter Name}
+
+%% Set the document metadata
+\title[\LaTeX{} Presentation]{\LaTeX{} Presentation Template}
+\author[Name]{Presenter Name}
 \institute[short institute name]{Complete Institute Name}
 \date{\today}
 \logo{\includegraphics[width=.05\linewidth]{logo}}
@@ -37,9 +29,9 @@
 
 %% Title frame
 \begin{frame}
-	\titlepage
-	%% TODO: You can add the note here
-	\note{hi}
+  \titlepage
+  %% TODO: You can add the note here
+  \note{hi}
 \end{frame}
 
 %% ToC frame

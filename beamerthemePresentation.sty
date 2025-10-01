@@ -1,19 +1,166 @@
+%%----------------------------------------------------------------------------------------
+%%   BEAMER THEME: Presentation
+%%----------------------------------------------------------------------------------------
+
+\mode<all>
+
+%%----------------------------------------------------------------------------------------
+%%   PACKAGE LOADING
+%%----------------------------------------------------------------------------------------
+
+%% Load the encoding package for UTF-8 support
+%% (This should be loaded before any other packages that use characters, e.g. fontenc, biblatex)
+\RequirePackage[utf8]{inputenc}
+
+%% Load the font encoding package for better font support
+\RequirePackage[T1]{fontenc}
+
+%% Load the textcomp package for additional text symbols
+\RequirePackage{textcomp}
+
+%% Load the bibliography package
+\makeatletter
+\@ifundefined{opt@biblatex.sty}{
+  \RequirePackage[backend=biber, style=ieee]{biblatex}
+}{
+  \RequirePackage[backend=biber]{biblatex}
+}
+\makeatother
+%% Change parentheses to square brackets for parenthetical citations like \autocite
+\renewcommand*{\mkbibparens}[1]{\bibopenbracket#1\bibclosebracket}
+\AtBeginBibliography{\small}
+
+%% Load the appendixnumberbeamer packages for appendix slide numbering
+\RequirePackage{appendixnumberbeamer}
+  \pdfstringdefDisableCommands{%
+  \def\translate#1{#1}%
+}
+
+%% Load the xcolor package for color support with the
+%% dvipsnames option providing a wide range of predefined colors
+\RequirePackage[dvipsnames]{xcolor}
+
+%% Load math packages for mathematical typesetting
+\RequirePackage{amsmath, amsfonts, amsthm, amssymb, mathtools, mathrsfs, mathdots}
+
+%% Load the nicefrac package for typesetting fractions
+\RequirePackage{nicefrac}
+
+%% Load the cancel package for striking out text in math mode
+\RequirePackage{cancel}
+
+%% Load the Mathematical Nature Symbols package for additional math symbols
+\RequirePackage{MnSymbol}
+
+%% Load the Double-Struck Font package for double-struck symbols \mathds{...}
+\RequirePackage{dsfont}
+
+%% Load the Upgreek package for upright Greek letters
+\RequirePackage{upgreek}
+
+%% Load the systeme package for typesetting systems of linear (and non-linear) equations.
+\RequirePackage{systeme}
+
+%% Load the siunitx package for SI units and numbers
+%% Use the locale option to set the number formatting according to the specified location.
+\RequirePackage[locale=US]{siunitx}
+
+%% Load the graphicx package for including graphics
+\RequirePackage{graphicx}
+
+%% Load the pifont package for special symbols
+%% https://dl.icdst.org/pdfs/files3/1900293ae8829c4c53fe55f2c9f0077c.pdf
+\RequirePackage{pifont}
+
+%% Load the TikZ package for creating graphics
+\RequirePackage{tikz}
+\usetikzlibrary{intersections, angles, quotes, positioning}
+\usetikzlibrary{arrows.meta}
+
+%% Load the pgfplots package for creating plots
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+%% Load the multirow and multicol packages for advanced row and column formatting
+\RequirePackage{multirow}
+\RequirePackage{multicol}
+
+%% Load the quotes package for better quotation handling
+\RequirePackage{csquotes} 
+\renewcommand{\mkbegdispquote}[2]{\itshape}
+
+%% Load the hyperref package for hyperlinks
+%% Beamer is designed to automatically load and configure the hyperref package in a way 
+%% that is compatible with its themes. Never load hyperref manually in a Beamer document.
+%% If you need to pass options to hyperref, do so by using the \hypersetup command after
+%% loading the beamer class.
+% \hypersetup{
+%   colorlinks=true,
+%   urlcolor=blue,      % Color for external links
+%   linkcolor=blue,     % Color for internal links (e.g., table of contents)
+%   citecolor=blue      % Color for citations
+% }
+
+%% Load the soul package for text highlighting
+% \RequirePackage{soulutf8} %% Use this for UTF-8 support with highlighting
+\RequirePackage{soul}
+\newcommand{\spaceout}{\so}
+
+%% Load the fancyvrb package for fancy verbatim text handling
+\RequirePackage{fancyvrb}
+
+%% Load the enumitem package for advanced list formatting
+\RequirePackage{enumitem}
+
+%% Load the minted package for syntax highlighting in code listings
+\RequirePackage{minted}
+%% Define 'latexcode' environment as a wrapper for 'minted' with LaTeX syntax highlighting
+\newminted{latex}{
+  breaklines, 
+  breakanywhere, 
+  fontsize=\footnotesize, 
+  linenos=true, 
+  numbersep=5pt, 
+  frame=lines, 
+  framesep=2mm, 
+  tabsize=2, 
+  autogobble=true
+}
+
+%% Load the booktabs package for better table formatting
+\RequirePackage{booktabs}
+
+%% Load the array dashed line package for advanced array and tabular features
+\RequirePackage{arydshln}
+
+%% Load the caption and subcaption packages for figure and table captions
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\captionsetup{labelfont = bf, labelsep = period, font = {footnotesize}}
+
+%% Load the multimedia package for embedding movie and sound files
+\RequirePackage{multimedia}
+
+%% Load the pbox package for paragraph boxes
+\RequirePackage{pbox}
+
+%% Load the algorithm and algpseudocode packages for algorithm formatting
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+
+%% Load the float package for controlling float placement
+\RequirePackage{float}
+
+%% Load the nameref package for referencing names
+\RequirePackage{nameref}
+
+
+%%----------------------------------------------------------------------------------------
+%%   BEAMER PRESENTATION MODE
+%%----------------------------------------------------------------------------------------
 \mode<presentation>
 
 \ProvidesPackage{beamerthemePresentation}
-
-%% Use \cmark for tick and \xmark for x
-\newcommand{\cmark}{\ding{51}}%
-\newcommand{\xmark}{\ding{55}}%
-
-
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-
-\usepackage{appendixnumberbeamer}
-\pdfstringdefDisableCommands{%
-\def\translate#1{#1}%
-}
 
 %% Uncomment the next line to remove the control symbol
 % \beamertemplatenavigationsymbolsempty
@@ -23,18 +170,32 @@
 \useinnertheme{circles}
 
 %% Add high lighted TOC before each section
-\AtBeginSection[]
-{
- \begin{frame}
- \frametitle{Table of Contents}
- \tableofcontents[currentsection]
- \end{frame}
+\AtBeginSection[]{%
+  \begin{frame}
+  \frametitle{Table of Contents}
+  \tableofcontents[currentsection]
+  \end{frame}
 }
 
 %% Page number
 \expandafter\def\expandafter\insertshorttitle\expandafter{%
- \insertshorttitle\hfill%
- \insertframenumber\,/\,\inserttotalframenumber}
+  \insertshorttitle\hfill%
+  \insertframenumber\,/\,\inserttotalframenumber
+}
 
-\mode<all>
+%%----------------------------------------------------------------------------------------
+%%   BEAMER HANDOUT MODE
+%%----------------------------------------------------------------------------------------
+% \mode<handout>
+
+%% Load the pgfpages package for creating handouts with multiple slides per page
+% \RequirePackage{pgfpages}
+% \setbeameroption{show notes on second screen}
+% \setbeamertemplate{note page}{\insertnote}
+
+%% Set the layout for the handout, e.g., 2 slides per page with notes
+% \pgfpagesuselayout{2 on 1 with notes}[a4paper, border shrink=5mm]
+
+%% Set the template for how notes are displayed on the page
+% \setbeamertemplate{note page}[plain]
 
