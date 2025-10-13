@@ -1,0 +1,67 @@
+				
+\begin{frame}[label=scope]{Scope \hyperlink{objectives}{\beamerbutton{Back to Objectives}}}
+	%% TODO: You can add the note here
+	\note{}
+\end{frame}
+
+\begin{frame}[label=algo1]{Formalizing - \texttt{Sample} Algorithm \hyperlink{process1}{\beamerbutton{Back to $\texttt{Sample}$ process}}}
+	\begin{algorithm}[H]
+		\small
+		\caption{$(\text{Result}) \gets \texttt{Sample}(\text{Input1})$}
+		\label{alg:algo1}
+		\begin{algorithmic}[1]
+			\Require $\text{Input1}$ is a predefined parameter.
+			\State $\text{Set} \gets \emptyset$
+			\For{$\text{element} \in \text{Input1}$}
+			\If{$\text{Condition}(\text{element})$ is true}
+			\State $\text{Set} \gets \text{Set} \cup \{\text{Process}(\text{element})\}$
+			\Else
+			\State \textbf{continue}
+			\EndIf
+			\EndFor
+			\State $\text{Intermediate} \gets \texttt{Transform}(\text{Set})$
+			\State \Return $\text{Result}$
+		\end{algorithmic}
+	\end{algorithm}
+	%% TODO: You can add the note here
+	\note{}
+\end{frame}
+	
+\begin{frame}[label=pseudocode1]{Formalizing - \texttt{Sample} Pseudocode \hyperlink{process1}{\beamerbutton{Back to $\texttt{Sample}$ process}}}
+	\begin{algorithm}[H]
+		\small
+		\caption{$(\text{Result}) \gets \texttt{Sample}(\text{Input1})$}
+		\label{alg:pseudocode1}
+		\begin{algorithmic}[1]
+			\Require $\text{Input1}$ is a predefined parameter.
+			\State $\text{Set} \gets \emptyset$
+			\For{$\text{element} \in \text{Input1}$}
+			\If{$\text{Condition}(\text{element})$ is true}
+			\State $\text{Set} \gets \text{Set} \cup \{\text{Process}(\text{element})\}$
+			\Else
+			\State \textbf{continue}
+			\EndIf
+			\EndFor
+			\State $\text{Intermediate} \gets \texttt{Transform}(\text{Set})$
+			\State \Return $\text{Result}$
+		\end{algorithmic}
+	\end{algorithm}
+	%% TODO: You can add the note here
+	\note{}
+\end{frame}
+
+%% TODO: Uncomment the next four lines to enable this frame
+% \begin{frame}{System architecture}
+% 	%% TODO: You can add the note here
+% 	\note{}
+% \end{frame}
+
+%% TODO: Uncomment the next four lines to enable this frame
+% \begin{frame}{Tech strategy choices}
+% 	%% TODO: You can add the note here
+% 	\note{}
+% \end{frame}
+
+\begin{frame}[allowframebreaks, noframenumbering]{References}
+	\printbibliography[heading=none]
+\end{frame}

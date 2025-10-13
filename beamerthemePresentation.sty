@@ -2,11 +2,16 @@
 %%   BEAMER THEME: Presentation
 %%----------------------------------------------------------------------------------------
 
-\mode<all>
-
+\mode<all>{
 %%----------------------------------------------------------------------------------------
 %%   PACKAGE LOADING
 %%----------------------------------------------------------------------------------------
+
+%% Load the xparse package for advanced command definitions
+\RequirePackage{xparse}
+
+%% Load the ifthen package for conditional statements
+\RequirePackage{ifthen}
 
 %% Load the encoding package for UTF-8 support
 %% (This should be loaded before any other packages that use characters, e.g. fontenc, biblatex)
@@ -21,7 +26,7 @@
 %% Load the bibliography package
 \makeatletter
 \@ifundefined{opt@biblatex.sty}{
-  \RequirePackage[backend=biber, style=ieee]{biblatex}
+  \RequirePackage[backend=biber, style=alphabetic, citestyle=authoryear]{biblatex}
 }{
   \RequirePackage[backend=biber]{biblatex}
 }
@@ -154,48 +159,214 @@
 %% Load the nameref package for referencing names
 \RequirePackage{nameref}
 
+%%----------------------------------------------------------------------------------------
+%%   CONTENT DIRECTORY MANAGEMENT
+%%----------------------------------------------------------------------------------------
+
+%% Set the default content directory
+\newcommand{\document@directory}{.} 
+
+%% Update the content directory
+\NewDocumentCommand{\setdirectory}{O{.}}{%
+  \renewcommand{\document@directory}{#1}%
+}
+
+%% Update the content directory for appendices
+\NewDocumentCommand{\setappendix}{O{.}}{%
+  \renewcommand{\document@directory}{#1}%
+  \appendix%
+}
+
+%% Load the content .tex file from the specified directory
+\newcommand{\addcontent}[1]{\input{\document@directory/#1}}
+
+} %% end \mode<all>
 
 %%----------------------------------------------------------------------------------------
 %%   BEAMER PRESENTATION MODE
 %%----------------------------------------------------------------------------------------
-\mode<presentation>
+\mode<presentation>{
 
-\ProvidesPackage{beamerthemePresentation}
+  \ProvidesPackage{beamerthemePresentation}
 
-%% Uncomment the next line to remove the control symbol
-% \beamertemplatenavigationsymbolsempty
+  %% Load the default beamer theme as the base theme
+  \usetheme{default}
 
-%% Load the base theme: Berlin
-\usetheme{Berlin}
-\useinnertheme{circles}
+  %% Load a font theme
+  \usepackage[space]{erewhon}
 
-%% Add high lighted TOC before each section
-\AtBeginSection[]{%
-  \begin{frame}
-  \frametitle{Table of Contents}
-  \tableofcontents[currentsection]
-  \end{frame}
-}
+  %% Load an inner theme
+  \useinnertheme{rounded}
+  \useinnertheme{rectangles}
 
-%% Page number
-\expandafter\def\expandafter\insertshorttitle\expandafter{%
-  \insertshorttitle\hfill%
-  \insertframenumber\,/\,\inserttotalframenumber
-}
+  % Define custom colors
+  \definecolor{default-color}{HTML}{272727}
+  \definecolor{background-color}{HTML}{FAFAF1}
+  \definecolor{accent-color}{HTML}{13294B}
+  \definecolor{highlight-color}{HTML}{FF5F05}
+  \definecolor{contrast-color}{HTML}{FFFFFF}
+
+  % Define transparency variable
+  \def\transparency{50}
+
+  % Set beamer colors
+  \setbeamercolor{item projected}{
+    fg=contrast-color, 
+    bg=accent-color,
+  }
+  \setbeamercolor{section in toc}{
+    fg=accent-color,
+  }
+  \setbeamercolor{background canvas}{
+    bg=background-color,
+  }
+  \setbeamercolor{frametitle}{
+    fg=contrast-color,
+    bg=accent-color, 
+  }
+  \setbeamercolor{section in head/foot}{
+    fg=accent-color, 
+    bg=background-color,
+  }
+  \setbeamercolor{author in head/foot}{
+    fg=contrast-color, 
+    bg=accent-color,
+  }
+  \setbeamercolor{title in head/foot}{
+    fg=contrast-color, 
+    bg=accent-color,
+  }
+  \setbeamercolor{date in head/foot}{
+    fg=contrast-color, 
+    bg=accent-color,
+  }
+  \setbeamercolor{itemize item}{
+    fg=accent-color,
+  }
+
+  % Set title page colors
+  \setbeamercolor{title}{fg=accent-color}
+  \setbeamercolor{subtitle}{fg=accent-color!\transparency}
+  \setbeamercolor{author}{fg=accent-color}
+  \setbeamercolor{institute}{fg=accent-color!\transparency}
+  \setbeamercolor{date}{fg=accent-color!\transparency}
+
+  % Customize title page spacing
+  \setbeamertemplate{title page}{
+    \vspace{0.15\paperheight}
+    \begin{centering}
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+      \vspace{0.5em}
+      {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+      \vspace{2em}
+      {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+      \vspace{1em}
+      {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+      \vspace{2em}
+      {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+    \end{centering}
+  }
+
+  % Set header with section navigation
+  \setbeamertemplate{headline}{
+    \begin{beamercolorbox}{section in head/foot}  
+      \vspace*{1pt}  
+      \insertnavigation{\paperwidth}
+      \vspace*{1pt}
+    \end{beamercolorbox}
+  }
+
+  % Customize frametitle to always show subtitle space
+  % \setbeamertemplate{frametitle}{
+  %   \nointerlineskip%
+  %   \begin{beamercolorbox}[wd=\paperwidth,ht=4ex,dp=1ex,leftskip=3ex, top]{frametitle}
+  %     \usebeamerfont{frametitle}\insertframetitle\par%
+  %     % \ifx\insertframesubtitle\@empty\else
+  %     %   \strut\par{\usebeamerfont{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}}\vskip-1em\null
+  %     % \fi
+  %     \ifx\insertframesubtitle\@empty
+  %       \vspace{2.5ex} % Add vertical space when no subtitle is provided
+  %     \else
+  %       \usebeamerfont*{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par
+  %     \fi
+  %   \end{beamercolorbox}%
+  %   % \nointerlineskip
+  %   % \begin{beamercolorbox}[wd=\paperwidth,leftskip=.3cm,rightskip=.3cm plus1fil,vmode]{frametitle}
+  %   %   \usebeamerfont*{frametitle}\insertframetitle\par
+  %   % \end{beamercolorbox}
+  % }
+  \setbeamertemplate{frametitle}{
+    \nointerlineskip
+    \begin{beamercolorbox}[wd=\paperwidth, ht=2.5ex, dp=2.5ex, leftskip=1ex]{frametitle}
+      \vtop{
+        \usebeamerfont*{frametitle}\insertframetitle\par
+        \usebeamerfont*{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par
+      }%
+    \end{beamercolorbox}
+  }
+
+  % Insert logo at the end of the frametitle
+  \addtobeamertemplate{frametitle}{}{
+    \vspace*{-4.2ex}
+    \hfill\insertlogo
+  }
+
+  \setbeamertemplate{footline}{
+    % Switch the typesetting from vertical mode to horizontal mode
+    \leavevmode%
+    \hbox{%
+      \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+        \hspace{1em}\usebeamerfont{author in head/foot}\insertshortauthor\ (\insertshortinstitute)
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \insertframenumber{} / \inserttotalframenumber{}\hspace*{2ex}
+      \end{beamercolorbox}
+    }
+  }
+
+  %% Uncomment the next line to remove the control symbol
+  % \beamertemplatenavigationsymbolsempty
+
+  %% Add title page and ToC frame at the beginning of the document
+  \AtBeginDocument{
+    \begin{frame}[plain, noframenumbering]
+      \titlepage
+    \end{frame}
+    \begin{frame}[noframenumbering]
+      \frametitle{Table of Contents}
+      \tableofcontents
+    \end{frame}
+  }
+
+  %% Add high lighted TOC before each section
+  \AtBeginSection[]{
+    \begin{frame}[noframenumbering]
+      \frametitle{Table of Contents}
+      \tableofcontents[currentsection]
+    \end{frame}
+  }
+
+  \setbeamersize{text margin left=1em,text margin right=1em}
+
+} %% end \mode<presentation>
 
 %%----------------------------------------------------------------------------------------
 %%   BEAMER HANDOUT MODE
 %%----------------------------------------------------------------------------------------
-% \mode<handout>
+\mode<handout>{
 
 %% Load the pgfpages package for creating handouts with multiple slides per page
-% \RequirePackage{pgfpages}
+\RequirePackage{pgfpages}
 % \setbeameroption{show notes on second screen}
 % \setbeamertemplate{note page}{\insertnote}
 
 %% Set the layout for the handout, e.g., 2 slides per page with notes
-% \pgfpagesuselayout{2 on 1 with notes}[a4paper, border shrink=5mm]
+\pgfpagesuselayout{2 on 1 with notes}[a4paper, border shrink=5mm]
 
 %% Set the template for how notes are displayed on the page
-% \setbeamertemplate{note page}[plain]
+\setbeamertemplate{note page}[plain]
 
+} %% end \mode<handout>
