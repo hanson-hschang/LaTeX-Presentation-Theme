@@ -1,5 +1,5 @@
 <div align=center>
 
-# $\LaTeX$ `Presentation Theme`
+# $\LaTeX$ `Slide Theme`
 
 </div>
