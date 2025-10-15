@@ -180,6 +180,21 @@
 %% Load the content .tex file from the specified directory
 \newcommand{\addcontent}[1]{\input{\document@directory/#1}}
 
+%% Remove frames from the navigation dots with \miniframesoff and \miniframeson
+%% https://tex.stackexchange.com/questions/752486/how-to-exclude-section-toc-slides-from-navigation-dots-in-beamer
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry%
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}% does not happen normally
+  {%else
+    % removed \addtocontents commands
+    \clearpage\beamer@notesactions%
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\makeatother
+
 } %% end \mode<all>
 
 %%----------------------------------------------------------------------------------------
@@ -323,12 +338,14 @@
 
   %% Add high lighted TOC before each section
   \AtBeginSection[]{
+    \miniframesoff
     \begin{noframenumber}
       \begin{frame}[noframenumbering]
         \frametitle{Table of Contents}
         \tableofcontents[currentsection]
       \end{frame}
     \end{noframenumber}
+    \miniframeson
   }
 
   \setbeamersize{text margin left=1em,text margin right=1em}
