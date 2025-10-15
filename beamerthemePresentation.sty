@@ -277,24 +277,6 @@
   }
 
   % Customize frametitle to always show subtitle space
-  % \setbeamertemplate{frametitle}{
-  %   \nointerlineskip%
-  %   \begin{beamercolorbox}[wd=\paperwidth,ht=4ex,dp=1ex,leftskip=3ex, top]{frametitle}
-  %     \usebeamerfont{frametitle}\insertframetitle\par%
-  %     % \ifx\insertframesubtitle\@empty\else
-  %     %   \strut\par{\usebeamerfont{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}}\vskip-1em\null
-  %     % \fi
-  %     \ifx\insertframesubtitle\@empty
-  %       \vspace{2.5ex} % Add vertical space when no subtitle is provided
-  %     \else
-  %       \usebeamerfont*{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par
-  %     \fi
-  %   \end{beamercolorbox}%
-  %   % \nointerlineskip
-  %   % \begin{beamercolorbox}[wd=\paperwidth,leftskip=.3cm,rightskip=.3cm plus1fil,vmode]{frametitle}
-  %   %   \usebeamerfont*{frametitle}\insertframetitle\par
-  %   % \end{beamercolorbox}
-  % }
   \setbeamertemplate{frametitle}{
     \nointerlineskip
     \begin{beamercolorbox}[wd=\paperwidth, ht=2.5ex, dp=2.5ex, leftskip=1ex]{frametitle}
@@ -311,6 +293,13 @@
     \hfill\insertlogo
   }
 
+  \newif\ifframenumber
+  \framenumbertrue
+
+  \newenvironment{noframenumber}
+  {\framenumberfalse}  % Execute when entering environment
+  {\framenumbertrue}   % Execute when leaving environment
+
   \setbeamertemplate{footline}{
     % Switch the typesetting from vertical mode to horizontal mode
     \leavevmode%
@@ -322,7 +311,9 @@
         \usebeamerfont{title in head/foot}\insertshorttitle
       \end{beamercolorbox}%
       \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
-        \insertframenumber{} / \inserttotalframenumber{}\hspace*{2ex}
+        \ifframenumber
+         \hspace*{1ex}\usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+        \fi
       \end{beamercolorbox}
     }
   }
@@ -330,23 +321,14 @@
   %% Uncomment the next line to remove the control symbol
   % \beamertemplatenavigationsymbolsempty
 
-  %% Add title page and ToC frame at the beginning of the document
-  \AtBeginDocument{
-    \begin{frame}[plain, noframenumbering]
-      \titlepage
-    \end{frame}
-    \begin{frame}[noframenumbering]
-      \frametitle{Table of Contents}
-      \tableofcontents
-    \end{frame}
-  }
-
   %% Add high lighted TOC before each section
   \AtBeginSection[]{
-    \begin{frame}[noframenumbering]
-      \frametitle{Table of Contents}
-      \tableofcontents[currentsection]
-    \end{frame}
+    \begin{noframenumber}
+      \begin{frame}[noframenumbering]
+        \frametitle{Table of Contents}
+        \tableofcontents[currentsection]
+      \end{frame}
+    \end{noframenumber}
   }
 
   \setbeamersize{text margin left=1em,text margin right=1em}
