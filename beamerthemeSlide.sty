@@ -23,6 +23,9 @@
 %% Load the font encoding package for better font support
 \RequirePackage[T1]{fontenc}
 
+%% Load the ragged2e package for improved text alignment
+\RequirePackage{ragged2e}
+
 %% Load the textcomp package for additional text symbols
 \RequirePackage{textcomp}
 
@@ -82,7 +85,7 @@
 
 %% Load the TikZ package for creating graphics
 \RequirePackage{tikz}
-\usetikzlibrary{intersections, angles, quotes, positioning}
+\usetikzlibrary{intersections, angles, quotes, positioning, backgrounds, shadows.blur}
 \usetikzlibrary{arrows.meta}
 
 %% Load the pgfplots package for creating plots
@@ -280,7 +283,7 @@
 
   % Customize title page spacing
   \setbeamertemplate{title page}{
-    \vspace{0.15\paperheight}
+    \vspace{0.1\paperheight}
     \begin{centering}
       {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
       \vspace{0.5em}
@@ -292,6 +295,14 @@
       \vspace{2em}
       {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
     \end{centering}
+    \ifx\beamer@titlegraphic\@empty\else
+      \begin{centering}
+        \vspace{2em}
+        \hfill
+        \inserttitlegraphic
+        \hfill
+      \end{centering}
+    \fi
   }
 
   % Set header with section navigation
@@ -332,7 +343,7 @@
     \leavevmode%
     \hbox{%
       \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
-        \hspace{1em}\usebeamerfont{author in head/foot}\insertshortauthor\ (\insertshortinstitute)
+        \hspace{1em}\usebeamerfont{author in head/foot}\insertshortauthor\ \insertshortinstitute
       \end{beamercolorbox}%
       \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
         \usebeamerfont{title in head/foot}\insertshorttitle

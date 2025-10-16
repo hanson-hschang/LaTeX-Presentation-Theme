@@ -10,14 +10,15 @@
   \alert{Handout mode Incomplete yet.}
 
   \paragraph{Metadata fields}
-  There are six metadata fields to be set in the preamble:
+  Several metadata fields can be set in the preamble:
   \begin{itemize}
     \item \Verb|\title[short title]{full title}|
     \item \Verb|\subtitle{subtitle}|
     \item \Verb|\author[short name]{full name}|
     \item \Verb|\institute[short name]{full name}|
     \item \Verb|\date{date}|
-    \item \Verb|\logo{graphicspath}|
+    \item \Verb|\logo{graphic}|
+    \item \Verb|\titlegraphic{graphic}| (optional)
   \end{itemize}
 \end{frame}
 
@@ -47,14 +48,11 @@
   \paragraph{Title Page}
   The title page is created using the \Verb|\titlepage| command within a \Verb|frame| environment.
   It is recommended to use the \Verb|plain| and \Verb|noframenumbering| options for the title page frame.
-  To include a title page logo, add the \Verb|\titlegraphic{graphicspath}| command at the preamble.
-  \alert{titlegraphic incomplete yet.}
 
   \paragraph{Table of Contents Slide}
   A table of contents (TOC) slide is created using the \Verb|\tableofcontents| command within a \Verb|frame| environment.
-  It is also recommended to use the \Verb|noframenumbering| option for the TOC slide frame.
-  To exclude the TOC slide from slide numbering, wrap the \Verb|frame| environment with the \Verb|noframenumber| environment defined in the theme.
-  Before each section, a TOC slide highlighting the current section is automatically added.
+  It is also recommended to use the \Verb|noframenumbering| option for the TOC slide.
+  Note that a TOC slide highlighting the current section is automatically added at the beginning of each section.
 
 \end{frame}
 

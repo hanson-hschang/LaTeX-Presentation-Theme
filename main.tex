@@ -21,10 +21,14 @@
 \title[\LaTeX{} BEAMER]{\LaTeX{} BEAMER Theme}
 \subtitle{a simple and clean slide template}
 \author[Name]{Presenter Name}
-\institute[Institute]{Complete Institute Name}
+\institute[(Institute)]{Complete Institute Name}
 \date{\today}
 \logo{\includegraphics[height=3ex]{logo}}
-% \titlegraphic{\includegraphics[height=2cm]{logo}}
+\titlegraphic{
+  \begin{tikzpicture}
+    \input{figure/titlegraphic.tex}
+  \end{tikzpicture}
+}
 
 
 \begin{document}

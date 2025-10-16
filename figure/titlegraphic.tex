@@ -1,0 +1,36 @@
+% --- Settings ---
+\tikzset{
+  logobox/.style={
+    align=center, 
+    font=\Large,
+    text=contrast-color
+  }
+}
+
+% --- Main Picture ---
+\begin{scope}[node distance=1.5cm] % Sets the default distance between nodes
+   
+  % 1. Place the logo image inside a node named 'logo'
+  \node (logo) {\includegraphics[width=1.5cm]{logo.png}}; % Your logo file
+
+  % 2. Place the text node to the right of the 'logo' node
+  \node[logobox, right of=logo] (text) {\LaTeX{}\\slide};
+  
+\end{scope}
+
+% --- Background Layer ---
+% This is drawn behind everything else
+\begin{scope}[on background layer]
+  % Define the padding amount
+  \def\padding{3pt}
+
+  % Fill the entire area of the picture with black
+  \fill[
+    accent-color,
+    rounded corners, 
+    blur shadow={shadow blur steps=5} % Adds a soft, blurred shadow
+  ] 
+  ([xshift=-\padding, yshift=-\padding]current bounding box.south west) 
+  rectangle 
+  ([xshift=\padding, yshift=\padding]current bounding box.north east);
+\end{scope}
