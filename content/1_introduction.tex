@@ -1,24 +1,61 @@
 \section{Format} 
 
-%% TODO: Make sure to use \alert{} for highlighting keywords, and \cite{} to cite the corresponding quotations
 \begin{frame}
-  \frametitle{Title Page Settings}
+  \frametitle{Metadata Settings}
   \framesubtitle{and beamer class settings}
   
-  \par{BEAMER class} 
-  The beamer is default to \Verb|presentation| mode. 
-  You can use \Verb|\documentclass[handout]{beamer}| mode for printing handouts.
+  \paragraph{BEAMER class}
+  The class is default to \Verb|presentation| mode. 
+  For printing handouts, use \Verb|\documentclass[handout]{beamer}| instead. 
+  \alert{Handout mode Incomplete yet.}
 
-  \par{Metadata fields} 
-  There are six metadata fields to set up the title page:
+  \paragraph{Metadata fields}
+  There are six metadata fields to be set in the preamble:
   \begin{itemize}
     \item \Verb|\title[short title]{full title}|
     \item \Verb|\subtitle{subtitle}|
     \item \Verb|\author[short name]{full name}|
     \item \Verb|\institute[short name]{full name}|
     \item \Verb|\date{date}|
-    \item \Verb|\logo{logo}|
+    \item \Verb|\logo{graphicspath}|
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Frame Settings}
+
+  \paragraph{Frame options}
+  A \Verb|frame| environment can take several options:
+  \begin{itemize}
+    \item \Verb|plain|: removes header and footer.
+    \item \Verb|noframenumbering|: excludes the frame from slide numbering.
+    \item \Verb|label=label_name|: assigns a label to the frame for hyperlinking.
+    \item \Verb|t|, \Verb|c|, \Verb|b|: aligns the content at the top, center, or bottom of the frame.
+  \end{itemize}
+  
+  \paragraph{No frame number indexing}
+  To remove frame number indexing at both the navigation bar and the footer, wrap the \Verb|frame| environment with the \Verb|noframenumber| environment defined in the theme.
+
+  \paragraph{Frame title and subtitle}
+  Use the \Verb|\frametitle{title}| and \Verb|\framesubtitle{subtitle}| commands within a \Verb|frame| environment to set the title and subtitle of the frame, respectively.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Title Page \& TOC Slides}
+
+  \paragraph{Title Page}
+  The title page is created using the \Verb|\titlepage| command within a \Verb|frame| environment.
+  It is recommended to use the \Verb|plain| and \Verb|noframenumbering| options for the title page frame.
+  To include a title page logo, add the \Verb|\titlegraphic{graphicspath}| command at the preamble.
+  \alert{titlegraphic incomplete yet.}
+
+  \paragraph{Table of Contents Slide}
+  A table of contents (TOC) slide is created using the \Verb|\tableofcontents| command within a \Verb|frame| environment.
+  It is also recommended to use the \Verb|noframenumbering| option for the TOC slide frame.
+  To exclude the TOC slide from slide numbering, wrap the \Verb|frame| environment with the \Verb|noframenumber| environment defined in the theme.
+  Before each section, a TOC slide highlighting the current section is automatically added.
+
 \end{frame}
 
 % TODO: If you need a button, label the frames accordingly then using \hyperlink{label_of_the_dest_frame}{\beamerbutton{Name of the dest. frame}

@@ -13,6 +13,9 @@
 %% Load the ifthen package for conditional statements
 \RequirePackage{ifthen}
 
+%% Load the etoolbox package for programming tools
+\RequirePackage{etoolbox}
+
 %% Load the encoding package for UTF-8 support
 %% (This should be loaded before any other packages that use characters, e.g. fontenc, biblatex)
 \RequirePackage[utf8]{inputenc}
@@ -115,7 +118,8 @@
 \RequirePackage{fancyvrb}
 
 %% Load the enumitem package for advanced list formatting
-\RequirePackage{enumitem}
+%% Do not load enumitem as it is incompatible with beamer
+% \RequirePackage{enumitem}
 
 %% Load the minted package for syntax highlighting in code listings
 \RequirePackage{minted}
@@ -194,6 +198,8 @@
 \newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
 \newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
 \makeatother
+
+\newcommand{\paragraph}[1]{\medskip\noindent{\bf #1:}}
 
 } %% end \mode<all>
 
@@ -318,8 +324,8 @@
   \framenumbertrue
 
   \newenvironment{noframenumber}
-  {\framenumberfalse}  % Execute when entering environment
-  {\framenumbertrue}   % Execute when leaving environment
+  {\miniframesoff\framenumberfalse}  % Execute when entering environment
+  {\framenumbertrue\miniframeson}   % Execute when leaving environment
 
   \setbeamertemplate{footline}{
     % Switch the typesetting from vertical mode to horizontal mode
@@ -344,17 +350,18 @@
 
   %% Add high lighted TOC before each section
   \AtBeginSection[]{
-    \miniframesoff
     \begin{noframenumber}
       \begin{frame}[noframenumbering]
         \frametitle{Table of Contents}
         \tableofcontents[currentsection]
       \end{frame}
     \end{noframenumber}
-    \miniframeson
   }
 
   \setbeamersize{text margin left=1em,text margin right=1em}
+
+  \setbeamertemplate{itemize items}[default]
+  \setbeamertemplate{enumerate items}[default]
 
 } %% end \mode<presentation>
 
