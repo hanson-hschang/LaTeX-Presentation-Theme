@@ -1,16 +1,24 @@
-
-\section{Introduction} 
+\section{Format} 
 
 %% TODO: Make sure to use \alert{} for highlighting keywords, and \cite{} to cite the corresponding quotations
 \begin{frame}
-	\frametitle{Motivation}
-	\framesubtitle{subtitle}
-	\begin{itemize} 	
-		\item This is the first \alert{highlighted keyword} to emphasize an important concept.
-		\item The second point addresses \alert{another key idea} in \cite{knuth:1984}.
-	\end{itemize}
-	%% TODO: You can add the note here
-	\note{}
+  \frametitle{Title Page Settings}
+  \framesubtitle{and beamer class settings}
+  
+  \par{BEAMER class} 
+  The beamer is default to \Verb|presentation| mode. 
+  You can use \Verb|\documentclass[handout]{beamer}| mode for printing handouts.
+
+  \par{Metadata fields} 
+  There are six metadata fields to set up the title page:
+  \begin{itemize}
+    \item \Verb|\title[short title]{full title}|
+    \item \Verb|\subtitle{subtitle}|
+    \item \Verb|\author[short name]{full name}|
+    \item \Verb|\institute[short name]{full name}|
+    \item \Verb|\date{date}|
+    \item \Verb|\logo{logo}|
+  \end{itemize}
 \end{frame}
 
 % TODO: If you need a button, label the frames accordingly then using \hyperlink{label_of_the_dest_frame}{\beamerbutton{Name of the dest. frame}
